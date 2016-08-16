@@ -10,4 +10,5 @@ deploy:
   acl: private
   on:
     repo: angryTit/serverless-backend
+  skip_cleanup: true
   local_dir: target
