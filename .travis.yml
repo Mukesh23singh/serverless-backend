@@ -1,14 +1,5 @@
 language: java
 jdk: oraclejdk8
 script: mvn -DskipTests package
-deploy:
-  provider: s3
-  access_key_id: AKIAJB36R7DJJ2KXLEPA
-  secret_access_key:
-    secure: VItvuRDXJ2KPHrfDw2mIjCSR+XM9TP2xIp3QUtKEDm2cebeppAsOEXUWnVCLnSiISzT7B0mysDskkb4emG0MpvNxdBnd8/nUgv22vACU4J5xKtIi3gvm6CJc23teMGfpezl2KV07Y2IRKq+jgo1tBjLR6vzhunMluQGZFMSOdpZUdfXhlhx5zWOCT94Xys6R0EK/3YJsVn+q0DblG1CQa4e+4Ir2+tb6IoaW3ifP9MamalGlMaJTpNAvQ56G9THyF8f3d2QVpef1m/4SH/jq0gT1m8TtOWDKaeGwBtCFgeFycT7qygqXIhyuuXm+Lh4YHsA0m/hsW8Yb7MvHe71ODT5VejEuQba+jdCMmUiy4vquJDeEmJBi6Q+gke5pM/zSZcadeUBcD8YZzvEr9d53N2aPMk5EVnYK4DAKuuSV/zwkjX10uuXRdm0Igo+iIRxRjO2p44zzH4f76R7YhII7ZpHiyFaq1jbMjQ0GwqVKCnDXZyJ1QWbuCbh4zD5ltUurVkV4o3y3oYcCov38N0S/U/VS2RoN1//BPowl9H/ogi0rd2nJlNoT6UVinOpoaRAzAO2zqv6ooAxBWj7sbNFvihONOHAx6uKQysQRWTb3vYFvd9qJ9DK173GzCTQL00PA00MvB98sqTIDJx+s19fY9VXwL3qw0yPrHw8MP/QUqEU=
-  bucket: blenddy-lambda
-  acl: private
-  on:
-    repo: angryTit/serverless-backend
-  skip_cleanup: true
-  local_dir: target/serverless-backend-1.0.0-SNAPSHOT.jar
+addons:
+  artifacts: true
