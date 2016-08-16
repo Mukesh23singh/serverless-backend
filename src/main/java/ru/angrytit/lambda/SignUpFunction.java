@@ -17,10 +17,10 @@ import static ru.angrytit.lambda.Config.REGION;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpFunction implements RequestHandler<SignUpRequest, String> {
+public class SignUpFunction implements RequestHandler<SignUpRequest, Void> {
 
     @Override
-    public String handleRequest(SignUpRequest request, Context context) {
+    public Void handleRequest(SignUpRequest request, Context context) {
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -28,7 +28,7 @@ public class SignUpFunction implements RequestHandler<SignUpRequest, String> {
                         build();
         LambdaLogger log = context.getLogger();
 
-        log.log("signUp started");
+        log.log("signUp : started\n");
 
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName("email").withValue(request.getEmail()));
@@ -43,7 +43,7 @@ public class SignUpFunction implements RequestHandler<SignUpRequest, String> {
 
         provider.signUp(signUpRequest);
 
-        log.log("signUp finished");
-        return "Ok";
+        log.log("signUp : finished\n");
+        return null;
     }
 }
