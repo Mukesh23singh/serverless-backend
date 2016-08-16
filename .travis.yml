@@ -9,3 +9,4 @@ deploy:
   acl: private
   on:
     repo: angryTit/serverless-backend
+  local_dir: target
