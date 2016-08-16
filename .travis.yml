@@ -11,4 +11,4 @@ deploy:
   on:
     repo: angryTit/serverless-backend
   skip_cleanup: true
-  local_dir: target
+  local_dir: target/serverless-backend-1.0.0-SNAPSHOT.jar
