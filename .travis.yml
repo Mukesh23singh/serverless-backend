@@ -1,5 +1,5 @@
 language: java
 jdk: oraclejdk8
-script: mvn -DskipTests package
 addons:
-  artifacts: true
+  artifacts:
+    paths: $HOME/target/serverless-backend-1.0.0-SNAPSHOT.jar
