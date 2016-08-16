@@ -1,6 +1,6 @@
 language: java
 jdk: oraclejdk8
-script: package
+script: mvn -DskipTests package
 deploy:
   provider: s3
   access_key_id: AKIAJB36R7DJJ2KXLEPA
