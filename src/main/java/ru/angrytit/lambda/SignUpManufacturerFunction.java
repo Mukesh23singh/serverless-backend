@@ -17,7 +17,11 @@ import static ru.angrytit.lambda.Config.REGION;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpFunction implements RequestHandler<SignUpRequest, Void> {
+public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest, Void> {
+
+    private static final String EMAIL_ATTR = "email";
+    private static final String TITLE_ATTR = "title";
+    private static final String BUSINESS_NAME = "business_name";
 
     @Override
     public Void handleRequest(SignUpRequest request, Context context) {
@@ -30,14 +34,17 @@ public class SignUpFunction implements RequestHandler<SignUpRequest, Void> {
 
         log.log("signUp : started\n");
 
+
         List<AttributeType> attributeTypes = new ArrayList<>();
-        attributeTypes.add(new AttributeType().withName("email").withValue(request.getEmail()));
+        attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(request.getEmail()));
+        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
+        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(request.getBusinessName()));
 
         com.amazonaws.services.cognitoidp.model.SignUpRequest signUpRequest =
                 new com.amazonaws.services.cognitoidp.model.SignUpRequest().
                         withClientId(APP_CLIENT_ID.getValue()).
                         withUserAttributes(attributeTypes).
-                        withUsername(request.getUserName()).
+                        withUsername(request.getName()).
                         withPassword(request.getPassword());
 
 
