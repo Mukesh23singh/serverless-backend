@@ -20,7 +20,7 @@ import static ru.angrytit.lambda.Config.REGION;
 public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest, Void> {
 
     private static final String EMAIL_ATTR = "email";
-    private static final String TITLE_ATTR = "title";
+//    private static final String TITLE_ATTR = "title";
 //    private static final String BUSINESS_NAME = "business_name";
 
     @Override
@@ -37,7 +37,7 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
 
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(request.getEmail()));
-        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
+//        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
 //        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(request.getBusinessName()));
 
         com.amazonaws.services.cognitoidp.model.SignUpRequest signUpRequest =
