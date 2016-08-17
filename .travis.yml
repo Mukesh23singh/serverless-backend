@@ -3,3 +3,4 @@ jdk: oraclejdk8
 addons:
   artifacts:
     paths: target/serverless-backend-1.0.0-SNAPSHOT.jar
+    acl: private
