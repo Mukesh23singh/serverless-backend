@@ -20,8 +20,8 @@ import static ru.angrytit.lambda.Config.REGION;
 public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest, Void> {
 
     private static final String EMAIL_ATTR = "email";
-    private static final String TITLE_ATTR = "custom:title";
-    private static final String BUSINESS_NAME = "custom:business_name";
+    private static final String TITLE_ATTR = "title";
+    private static final String BUSINESS_NAME = "business_name";
 
     @Override
     public Void handleRequest(SignUpRequest request, Context context) {
