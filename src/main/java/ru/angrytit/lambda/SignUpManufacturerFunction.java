@@ -46,7 +46,6 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
                 new com.amazonaws.services.cognitoidp.model.SignUpRequest().
                         withClientId(APP_CLIENT_ID.getValue()).
                         withUserAttributes(attributeTypes).
-                        withUsername(request.getName()).
                         withPassword(request.getPassword());
 
 
