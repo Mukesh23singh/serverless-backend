@@ -22,7 +22,7 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
     private static final String EMAIL_ATTR = "email";
     private static final String NAME_ATTR = "name";
     private static final String TITLE_ATTR = "custom:title";
-    private static final String BUSINESS_NAME = "custom:business name";
+    private static final String BUSINESS_NAME = "custom:business_name";
 
     @Override
     public Void handleRequest(SignUpRequest request, Context context) {
