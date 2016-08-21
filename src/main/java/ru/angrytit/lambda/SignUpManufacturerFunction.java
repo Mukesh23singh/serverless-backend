@@ -6,6 +6,8 @@ import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ru.angrytit.lambda.model.SignUpRequest;
 
 import java.util.ArrayList;
@@ -31,28 +33,37 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
                         standard().
                         withRegion(REGION.getValue()).
                         build();
-        LambdaLogger log = context.getLogger();
+        LambdaLogger lambdaLogger = context.getLogger();
+        Logger log = LoggerFactory.getLogger(getClass());
 
-        log.log("signUp : started\n");
-
+        lambdaLogger.log("signUp : started\n");
+        String userName = request.getUserName();
+        String password = request.getPassword();
+        String email = request.getEmail();
+        String title = request.getTitle();
+        String name = request.getName();
+        String businessName = request.getBusinessName();
+        log.info("SignUp with username : {}, email : {}, name : {}, title : {} and business name : {}",
+                userName, email, name, title, businessName);
 
         List<AttributeType> attributeTypes = new ArrayList<>();
-        attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(request.getEmail()));
-        attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(request.getName()));
-        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
-        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(request.getBusinessName()));
+        attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(email));
+        attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(name));
+        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(title));
+        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
 
         com.amazonaws.services.cognitoidp.model.SignUpRequest signUpRequest =
                 new com.amazonaws.services.cognitoidp.model.SignUpRequest().
                         withClientId(APP_CLIENT_ID.getValue()).
-                        withUsername(request.getUserName()).
-                        withPassword(request.getPassword()).
+                        withUsername(userName).
+                        withPassword(password).
                         withUserAttributes(attributeTypes);
 
 
         provider.signUp(signUpRequest);
+        log.info("SignUp with username : {} was successfully", userName);
 
-        log.log("signUp : finished\n");
+        lambdaLogger.log("signUp : finished\n");
         return null;
     }
 }
