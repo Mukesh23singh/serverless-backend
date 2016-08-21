@@ -21,7 +21,7 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
 
     private static final String EMAIL_ATTR = "email";
     private static final String NAME_ATTR = "name";
-//    private static final String TITLE_ATTR = "title";
+    private static final String TITLE_ATTR = "title";
 //    private static final String BUSINESS_NAME = "business_name";
 
     @Override
@@ -39,7 +39,7 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(request.getEmail()));
         attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(request.getName()));
-//        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
+        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(request.getTitle()));
 //        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(request.getBusinessName()));
 
         com.amazonaws.services.cognitoidp.model.SignUpRequest signUpRequest =
