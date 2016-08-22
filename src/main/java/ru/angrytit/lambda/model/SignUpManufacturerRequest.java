@@ -5,20 +5,11 @@ package ru.angrytit.lambda.model;
  */
 public class SignUpManufacturerRequest {
 
-    private String userName;
     private String name;
     private String title;
     private String businessName;
     private String email;
     private String password;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getName() {
         return name;

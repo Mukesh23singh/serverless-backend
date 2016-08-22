@@ -13,6 +13,7 @@ import ru.angrytit.lambda.model.SignUpManufacturerRequest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static ru.angrytit.lambda.Config.APP_CLIENT_ID;
 import static ru.angrytit.lambda.Config.REGION;
@@ -42,7 +43,7 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpManufact
         Logger log = LoggerFactory.getLogger(getClass());
 
         lambdaLogger.log("signUp : started\n");
-        String userName = request.getUserName();
+        String userName = UUID.randomUUID().toString();
         String password = request.getPassword();
         String email = request.getEmail();
         String title = request.getTitle();
