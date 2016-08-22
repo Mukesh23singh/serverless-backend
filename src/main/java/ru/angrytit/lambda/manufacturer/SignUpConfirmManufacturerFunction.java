@@ -35,7 +35,7 @@ public class SignUpConfirmManufacturerFunction implements RequestHandler<Confirm
         lambdaLogger.log("confirm : started\n");
 
         String confirmCode = confirmRequest.getCode();
-        String userName = confirmRequest.getUserName();
+        String userName = confirmRequest.getId();
 
         log.info("Confirm signUp for user name : {} with code : {}", userName, confirmCode);
         ConfirmSignUpRequest confirmSignUpRequest = new ConfirmSignUpRequest().

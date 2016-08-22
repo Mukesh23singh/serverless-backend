@@ -4,15 +4,15 @@ package ru.angrytit.lambda.model;
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
 public class ConfirmRequest {
-    private String userName;
+    private String id;
     private String code;
 
-    public String getUserName() {
-        return userName;
+    public String getId() {
+        return id;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getCode() {
