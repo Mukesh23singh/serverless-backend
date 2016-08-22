@@ -21,7 +21,7 @@ import static ru.angrytit.lambda.Config.REGION;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpManufacturerFunction implements RequestHandler<SignUpManufacturerRequest, Void> {
+public class SignUpManufacturerFunction implements RequestHandler<SignUpManufacturerRequest, String> {
 
     private static final String EMAIL_ATTR = "email";
     private static final String NAME_ATTR = "name";
@@ -29,11 +29,11 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpManufact
     private static final String BUSINESS_NAME = "custom:business_name";
 
     @Override
-    public Void handleRequest(SignUpManufacturerRequest request, Context context) {
+    public String handleRequest(SignUpManufacturerRequest request, Context context) {
         return signUp(request, context);
     }
 
-    private Void signUp(SignUpManufacturerRequest request, Context context) {
+    private String signUp(SignUpManufacturerRequest request, Context context) {
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -69,6 +69,6 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpManufact
         log.info("SignUp with username : {} was successfully", userName);
 
         lambdaLogger.log("signUp : finished\n");
-        return null;
+        return "OK";
     }
 }

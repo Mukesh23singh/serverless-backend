@@ -16,14 +16,14 @@ import static ru.angrytit.lambda.Config.REGION;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpConfirmManufacturerFunction implements RequestHandler<ConfirmRequest, Void> {
+public class SignUpConfirmManufacturerFunction implements RequestHandler<ConfirmRequest, String> {
 
     @Override
-    public Void handleRequest(ConfirmRequest confirmRequest, Context context) {
+    public String handleRequest(ConfirmRequest confirmRequest, Context context) {
         return confirm(confirmRequest, context);
     }
 
-    private Void confirm(ConfirmRequest confirmRequest, Context context) {
+    private String confirm(ConfirmRequest confirmRequest, Context context) {
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -46,6 +46,6 @@ public class SignUpConfirmManufacturerFunction implements RequestHandler<Confirm
         log.info("Confirm signUp for user name : {} was successfully", userName);
 
         lambdaLogger.log("confirm : finished\n");
-        return null;
+        return "OK";
     }
 }
