@@ -1,14 +1,15 @@
-package ru.angrytit.lambda;
+package ru.angrytit.lambda.manufacturer;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
+import com.amazonaws.services.cognitoidp.model.SignUpRequest;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.angrytit.lambda.model.SignUpRequest;
+import ru.angrytit.lambda.model.SignUpManufacturerRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import static ru.angrytit.lambda.Config.REGION;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest, Void> {
+public class SignUpManufacturerFunction implements RequestHandler<SignUpManufacturerRequest, Void> {
 
     private static final String EMAIL_ATTR = "email";
     private static final String NAME_ATTR = "name";
@@ -27,7 +28,11 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
     private static final String BUSINESS_NAME = "custom:business_name";
 
     @Override
-    public Void handleRequest(SignUpRequest request, Context context) {
+    public Void handleRequest(SignUpManufacturerRequest request, Context context) {
+        return signUp(request, context);
+    }
+
+    private Void signUp(SignUpManufacturerRequest request, Context context) {
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -52,12 +57,11 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpRequest,
         attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(title));
         attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
 
-        com.amazonaws.services.cognitoidp.model.SignUpRequest signUpRequest =
-                new com.amazonaws.services.cognitoidp.model.SignUpRequest().
-                        withClientId(APP_CLIENT_ID.getValue()).
-                        withUsername(userName).
-                        withPassword(password).
-                        withUserAttributes(attributeTypes);
+        SignUpRequest signUpRequest = new SignUpRequest().
+                withClientId(APP_CLIENT_ID.getValue()).
+                withUsername(userName).
+                withPassword(password).
+                withUserAttributes(attributeTypes);
 
 
         provider.signUp(signUpRequest);

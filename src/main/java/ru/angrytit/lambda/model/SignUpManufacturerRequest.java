@@ -3,7 +3,7 @@ package ru.angrytit.lambda.model;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpRequest {
+public class SignUpManufacturerRequest {
 
     private String userName;
     private String name;
