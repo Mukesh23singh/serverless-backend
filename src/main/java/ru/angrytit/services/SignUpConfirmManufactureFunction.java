@@ -4,23 +4,22 @@ import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.ConfirmSignUpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import ru.angrytit.model.CommonRequest;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-@Service("SignUpConfirmManufactureFunction")
 public class SignUpConfirmManufactureFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    @Autowired
-    private AWSCognitoIdentityProvider awsCognitoIdentityProvider;
+    private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
-    @Value("${application.client.id}")
-    private String applicationClientId;
+    private final String applicationClientId;
+
+    public SignUpConfirmManufactureFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
+        this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
+        this.applicationClientId = applicationClientId;
+    }
 
     @Override
     public String handle(CommonRequest request) {

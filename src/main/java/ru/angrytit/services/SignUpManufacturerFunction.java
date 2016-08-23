@@ -5,9 +5,6 @@ import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.cognitoidp.model.SignUpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import ru.angrytit.model.CommonRequest;
 
 import java.util.ArrayList;
@@ -17,7 +14,6 @@ import java.util.UUID;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-@Service("SignUpManufacturerFunction")
 public class SignUpManufacturerFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
@@ -26,11 +22,14 @@ public class SignUpManufacturerFunction implements HandleService {
     private static final String TITLE_ATTR = "custom:title";
     private static final String BUSINESS_NAME = "custom:business_name";
 
-    @Autowired
-    private AWSCognitoIdentityProvider awsCognitoIdentityProvider;
+    private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
-    @Value("${application.client.id}")
-    private String applicationClientId;
+    private final String applicationClientId;
+
+    public SignUpManufacturerFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
+        this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
+        this.applicationClientId = applicationClientId;
+    }
 
     @Override
     public String handle(CommonRequest request) {
