@@ -7,8 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import ru.angrytit.services.SignUpConfirmManufactureFunction;
-import ru.angrytit.services.SignUpManufacturerFunction;
+import ru.angrytit.services.AuthB2bFunction;
+import ru.angrytit.services.SignUpB2bFunction;
+import ru.angrytit.services.SignUpConfirmB2bFunction;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
@@ -24,10 +25,12 @@ public class Config {
     @Value("${application.client.id}")
     private String applicationClientId;
 
+    @Value("${user.pool.id}")
+    private String userPoolId;
+
 
     @Bean
     public AWSCognitoIdentityProvider awsCognitoIdentityProvider() {
-        System.err.println("region : " + region + '\n');
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -36,15 +39,18 @@ public class Config {
         return provider;
     }
 
-    @Bean(name = "SignUpManufacturerFunction")
-    public SignUpManufacturerFunction signUpManufacturerFunction() {
-        System.err.println("applicationClientId : " + applicationClientId + '\n');
-        return new SignUpManufacturerFunction(awsCognitoIdentityProvider(), applicationClientId);
+    @Bean(name = "SignUpB2bFunction")
+    public SignUpB2bFunction signUpB2bFunction() {
+        return new SignUpB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
     }
 
-    @Bean(name = "SignUpConfirmManufactureFunction")
-    public SignUpConfirmManufactureFunction signUpConfirmManufactureFunction() {
-        System.err.println("applicationClientId : " + applicationClientId + '\n');
-        return new SignUpConfirmManufactureFunction(awsCognitoIdentityProvider(), applicationClientId);
+    @Bean(name = "SignUpConfirmB2bFunction")
+    public SignUpConfirmB2bFunction signUpConfirmB2bFunction() {
+        return new SignUpConfirmB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
+    }
+
+    @Bean(name = "AuthB2bFunction")
+    public AuthB2bFunction authB2bFunction() {
+        return new AuthB2bFunction(awsCognitoIdentityProvider(), applicationClientId, userPoolId);
     }
 }

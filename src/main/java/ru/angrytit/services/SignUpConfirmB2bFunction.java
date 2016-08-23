@@ -9,14 +9,14 @@ import ru.angrytit.model.CommonRequest;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpConfirmManufactureFunction implements HandleService {
+public class SignUpConfirmB2bFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
     private final String applicationClientId;
 
-    public SignUpConfirmManufactureFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
+    public SignUpConfirmB2bFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
         this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
         this.applicationClientId = applicationClientId;
     }

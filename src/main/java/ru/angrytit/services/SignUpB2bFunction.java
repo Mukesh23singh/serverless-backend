@@ -14,7 +14,7 @@ import java.util.UUID;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpManufacturerFunction implements HandleService {
+public class SignUpB2bFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String EMAIL_ATTR = "email";
@@ -26,7 +26,7 @@ public class SignUpManufacturerFunction implements HandleService {
 
     private final String applicationClientId;
 
-    public SignUpManufacturerFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
+    public SignUpB2bFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
         this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
         this.applicationClientId = applicationClientId;
     }
