@@ -35,7 +35,7 @@ public class AuthB2bFunction implements HandleService {
     @Override
     public String handle(CommonRequest request) {
         String email = request.getEmail();
-        String pass = request.getEmail();
+        String pass = request.getPassword();
 
         log.info("Auth for user with email : {}", email);
 
