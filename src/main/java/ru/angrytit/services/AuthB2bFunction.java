@@ -17,7 +17,7 @@ import java.util.Map;
 public class AuthB2bFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
 
-    private static final String USERNAME_ATTR = "USERNAME";
+    private static final String USERNAME_ATTR = "EMAIL";
     private static final String PASSWORD_ATTR = "PASSWORD";
 
     private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
