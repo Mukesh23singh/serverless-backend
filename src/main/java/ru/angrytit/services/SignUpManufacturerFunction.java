@@ -1,54 +1,47 @@
-package ru.angrytit.lambda.manufacturer;
+package ru.angrytit.services;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
-import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProviderClientBuilder;
 import com.amazonaws.services.cognitoidp.model.AttributeType;
 import com.amazonaws.services.cognitoidp.model.SignUpRequest;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.angrytit.lambda.model.SignUpManufacturerRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+import ru.angrytit.model.CommonRequest;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static ru.angrytit.lambda.Config.APP_CLIENT_ID;
-import static ru.angrytit.lambda.Config.REGION;
-
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class SignUpManufacturerFunction implements RequestHandler<SignUpManufacturerRequest, String> {
+@Service("SignUpManufacturerFunction")
+public class SignUpManufacturerFunction implements HandleService {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String EMAIL_ATTR = "email";
     private static final String NAME_ATTR = "name";
     private static final String TITLE_ATTR = "custom:title";
     private static final String BUSINESS_NAME = "custom:business_name";
 
+    @Autowired
+    private AWSCognitoIdentityProvider awsCognitoIdentityProvider;
+
+    @Value("${application.client.id}")
+    private String applicationClientId;
+
     @Override
-    public String handleRequest(SignUpManufacturerRequest request, Context context) {
-        return signUp(request, context);
-    }
-
-    private String signUp(SignUpManufacturerRequest request, Context context) {
-        AWSCognitoIdentityProvider provider =
-                AWSCognitoIdentityProviderClientBuilder.
-                        standard().
-                        withRegion(REGION.getValue()).
-                        build();
-        LambdaLogger lambdaLogger = context.getLogger();
-        Logger log = LoggerFactory.getLogger(getClass());
-
-        lambdaLogger.log("signUp : started\n");
+    public String handle(CommonRequest request) {
         String userName = UUID.randomUUID().toString();
+
         String password = request.getPassword();
         String email = request.getEmail();
         String title = request.getTitle();
         String name = request.getName();
         String businessName = request.getBusinessName();
+
         log.info("SignUp with username : {}, email : {}, name : {}, title : {} and business name : {}",
                 userName, email, name, title, businessName);
 
@@ -59,16 +52,15 @@ public class SignUpManufacturerFunction implements RequestHandler<SignUpManufact
         attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
 
         SignUpRequest signUpRequest = new SignUpRequest().
-                withClientId(APP_CLIENT_ID.getValue()).
+                withClientId(applicationClientId).
                 withUsername(userName).
                 withPassword(password).
                 withUserAttributes(attributeTypes);
 
 
-        provider.signUp(signUpRequest);
+        awsCognitoIdentityProvider.signUp(signUpRequest);
         log.info("SignUp with username : {} was successfully", userName);
 
-        lambdaLogger.log("signUp : finished\n");
         return "OK";
     }
 }
