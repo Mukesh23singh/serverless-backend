@@ -25,6 +25,7 @@ public class Config {
 
     @Bean
     public AWSCognitoIdentityProvider awsCognitoIdentityProvider() {
+        System.err.println("region : " + region + '\n');
         AWSCognitoIdentityProvider provider =
                 AWSCognitoIdentityProviderClientBuilder.
                         standard().
@@ -35,11 +36,13 @@ public class Config {
 
     @Bean(name = "SignUpManufacturerFunction")
     public SignUpManufacturerFunction signUpManufacturerFunction() {
+        System.err.println("applicationClientId : " + applicationClientId + '\n');
         return new SignUpManufacturerFunction(awsCognitoIdentityProvider(), applicationClientId);
     }
 
     @Bean(name = "SignUpConfirmManufactureFunction")
     public SignUpConfirmManufactureFunction signUpConfirmManufactureFunction() {
+        System.err.println("applicationClientId : " + applicationClientId + '\n');
         return new SignUpConfirmManufactureFunction(awsCognitoIdentityProvider(), applicationClientId);
     }
 }
