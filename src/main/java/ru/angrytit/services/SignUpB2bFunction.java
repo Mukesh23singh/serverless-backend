@@ -46,9 +46,16 @@ public class SignUpB2bFunction implements HandleService {
 
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(email));
-        attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(name));
-        attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(title));
-        attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
+
+        if (name != null) {
+            attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(name));
+        }
+        if (title != null) {
+            attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(title));
+        }
+        if (businessName != null) {
+            attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
+        }
 
         SignUpRequest signUpRequest = new SignUpRequest().
                 withClientId(applicationClientId).
