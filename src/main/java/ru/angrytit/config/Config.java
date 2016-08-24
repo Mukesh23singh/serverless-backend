@@ -10,9 +10,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ru.angrytit.services.AuthB2bFunction;
-import ru.angrytit.services.LoginB2bFunction;
+import ru.angrytit.services.GetUserB2bFunction;
 import ru.angrytit.services.SignUpB2bFunction;
 import ru.angrytit.services.SignUpConfirmB2bFunction;
+import ru.angrytit.services.inner.CredentialsService;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
@@ -45,6 +46,12 @@ public class Config {
         return AmazonCognitoIdentityClientBuilder.standard().withRegion(region).build();
     }
 
+    @Bean
+    public CredentialsService credentialsService() {
+        String providerName = "cognito-idp." + region + ".amazonaws.com/" + userPoolId;
+        return new CredentialsService(awsCognitoIdentityClient(), identityPoolId, providerName);
+    }
+
     @Bean(name = "SignUpB2bFunction")
     public SignUpB2bFunction signUpB2bFunction() {
         return new SignUpB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
@@ -60,9 +67,9 @@ public class Config {
         return new AuthB2bFunction(awsCognitoIdentityProvider(), applicationClientId, userPoolId);
     }
 
-    @Bean(name = "LoginB2bFunction")
-    public LoginB2bFunction loginB2bFunction() {
-        String providerName = "cognito-idp." + region + ".amazonaws.com/" + userPoolId;
-        return new LoginB2bFunction(awsCognitoIdentityClient(), identityPoolId, providerName);
+    @Bean(name = "GetUserB2bFunction")
+    public GetUserB2bFunction userB2bFunction() {
+        return new GetUserB2bFunction(awsCognitoIdentityProvider());
     }
+
 }
