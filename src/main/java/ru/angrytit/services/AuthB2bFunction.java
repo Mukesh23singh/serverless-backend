@@ -6,6 +6,7 @@ import com.amazonaws.services.cognitoidp.model.AdminInitiateAuthResult;
 import com.amazonaws.services.cognitoidp.model.AuthFlowType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.angrytit.model.AuthResponse;
 import ru.angrytit.model.CommonRequest;
 
 import java.util.HashMap;
@@ -33,7 +34,7 @@ public class AuthB2bFunction implements HandleService {
     }
 
     @Override
-    public String handle(CommonRequest request) {
+    public AuthResponse handle(CommonRequest request) {
         String email = request.getEmail();
         String pass = request.getPassword();
 
@@ -53,6 +54,8 @@ public class AuthB2bFunction implements HandleService {
 
         log.info("Auth for user with email : {} was successfully with accessToken : {}", email, accessToken);
 
-        return accessToken;
+        AuthResponse response = new AuthResponse();
+        response.setAccessToken(accessToken);
+        return response;
     }
 }
