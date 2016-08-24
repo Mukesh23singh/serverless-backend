@@ -12,11 +12,16 @@ import com.amazonaws.services.cognitosync.AmazonCognitoSync;
 import com.amazonaws.services.cognitosync.AmazonCognitoSyncClient;
 import com.amazonaws.services.cognitosync.model.ListDatasetsRequest;
 import com.amazonaws.services.cognitosync.model.ListDatasetsResult;
+import com.amazonaws.services.cognitosync.model.RecordPatch;
+import com.amazonaws.services.cognitosync.model.UpdateRecordsRequest;
+import com.amazonaws.services.cognitosync.model.UpdateRecordsResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.angrytit.model.CommonRequest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -77,6 +82,18 @@ public class LoginB2bFunction implements HandleService {
         syncRequest.setIdentityPoolId(identityPoolId);
 
         ListDatasetsResult syncResp = syncClient.listDatasets(syncRequest);
+
+        UpdateRecordsRequest updateRecordsRequest = new UpdateRecordsRequest();
+        updateRecordsRequest.setDatasetName("SimpleSet");
+        updateRecordsRequest.setIdentityId(identityId);
+        updateRecordsRequest.setSyncSessionToken(credentials.getSessionToken());
+        RecordPatch patch = new RecordPatch();
+        patch.setKey("Key");
+        patch.setValue("Value");
+        List<RecordPatch> list = new ArrayList<RecordPatch>();
+        list.add(patch);
+        updateRecordsRequest.setRecordPatches(list);
+        UpdateRecordsResult updateRecordsResult = syncClient.updateRecords(updateRecordsRequest);
 
         return syncResp.getDatasets();
     }
