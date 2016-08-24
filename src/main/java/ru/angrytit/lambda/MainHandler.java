@@ -8,9 +8,9 @@ import ru.angrytit.services.HandleService;
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
-public class MainHandler extends AbstractHandler implements RequestHandler<CommonRequest, String> {
+public class MainHandler extends AbstractHandler implements RequestHandler<CommonRequest, Object> {
     @Override
-    public String handleRequest(CommonRequest commonRequest, Context context) {
+    public Object handleRequest(CommonRequest commonRequest, Context context) {
         String functionName = context.getFunctionName();
         HandleService service = (HandleService) getApplicationContext().getBean(functionName);
         return service.handle(commonRequest);
