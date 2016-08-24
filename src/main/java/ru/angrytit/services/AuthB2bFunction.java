@@ -51,11 +51,19 @@ public class AuthB2bFunction implements HandleService {
                 withUserPoolId(userPoolId);
         AdminInitiateAuthResult result = awsCognitoIdentityProvider.adminInitiateAuth(adminInitiateAuthRequest);
         String accessToken = result.getAuthenticationResult().getAccessToken();
+        String idToken = result.getAuthenticationResult().getIdToken();
+        String refreshToken = result.getAuthenticationResult().getRefreshToken();
+        Integer expiresIn = result.getAuthenticationResult().getExpiresIn();
 
-        log.info("Auth for user with email : {} was successfully with accessToken : {}", email, accessToken);
+        log.info("Auth for user with email : {} was successfully with accessToken : {}, id token : {}, refresh token : {} and expire in {}",
+                email, accessToken, idToken, refreshToken, expiresIn);
 
         AuthResponse response = new AuthResponse();
         response.setAccessToken(accessToken);
+        response.setIdToken(idToken);
+        response.setRefreshToken(refreshToken);
+        response.setExpiresIn(expiresIn);
+
         return response;
     }
 }

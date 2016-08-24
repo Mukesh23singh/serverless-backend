@@ -39,21 +39,21 @@ public class LoginB2bFunction implements HandleService {
 
     @Override
     public Object handle(CommonRequest request) {
-        String accessToken = request.getAccessToken();
-        log.info("Login user with access token : {}", accessToken);
+        String idToken = request.getIdToken();
+        log.info("Login user with id token : {}", idToken);
 
         GetIdRequest idRequest = new GetIdRequest();
         idRequest.setIdentityPoolId(identityPoolId);
 
         Map providerTokens = new HashMap();
-        providerTokens.put(providerName, accessToken);
+        providerTokens.put(providerName, idToken);
         idRequest.setLogins(providerTokens);
 
         GetIdResult idResp = awsCognitoIdentityClient.getId(idRequest);
 
         String identityId = idResp.getIdentityId();
 
-        log.info("Got an identity id for user with access token : {}, identity id : {}", accessToken, identityId);
+        log.info("Got an identity id for user with id token : {}, identity id : {}", idToken, identityId);
 
         GetCredentialsForIdentityRequest credentialsRequest = new GetCredentialsForIdentityRequest().
                 withIdentityId(identityId).
@@ -68,8 +68,8 @@ public class LoginB2bFunction implements HandleService {
                 credentials.getSessionToken()
         );
 
-        log.info("Got temporary credentials with expiration : {} for user with access token : {}",
-                credentials.getExpiration(), accessToken);
+        log.info("Got temporary credentials with expiration : {} for user with id token : {}",
+                credentials.getExpiration(), idToken);
 
         AmazonCognitoSync syncClient = new AmazonCognitoSyncClient(sessionCredentials);
         ListDatasetsRequest syncRequest = new ListDatasetsRequest();

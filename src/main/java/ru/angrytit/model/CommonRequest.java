@@ -17,6 +17,24 @@ public class CommonRequest {
 
     //login request fields
     private String accessToken;
+    private String idToken;
+    private String refreshToken;
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
+    public String getIdToken() {
+        return idToken;
+    }
+
+    public void setIdToken(String idToken) {
+        this.idToken = idToken;
+    }
 
     public String getAccessToken() {
         return accessToken;
