@@ -62,7 +62,7 @@ public class Config {
 
     @Bean(name = "LoginB2bFunction")
     public LoginB2bFunction loginB2bFunction() {
-        String providerName = "idp." + region + ".amazonaws.com/" + userPoolId;
+        String providerName = "cognito-idp." + region + ".amazonaws.com/" + userPoolId;
         return new LoginB2bFunction(awsCognitoIdentityClient(), identityPoolId, providerName);
     }
 }
