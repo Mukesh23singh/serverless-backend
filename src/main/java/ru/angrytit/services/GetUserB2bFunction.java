@@ -6,6 +6,9 @@ import com.amazonaws.services.cognitoidp.model.GetUserResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.angrytit.model.CommonRequest;
+import ru.angrytit.model.UserAttributes;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
@@ -26,6 +29,8 @@ public class GetUserB2bFunction implements HandleService {
         GetUserRequest getUserRequest = new GetUserRequest().withAccessToken(accessToken);
         GetUserResult result = awsCognitoIdentityProvider.getUser(getUserRequest);
         log.info("Got user info for access token : {}, user name : {}", accessToken, result.getUsername());
-        return result.getUserAttributes();
+        return result.getUserAttributes().stream().
+                filter(each -> UserAttributes.contains(each.getName())).
+                collect(toList());
     }
 }

@@ -11,16 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static ru.angrytit.model.UserAttributes.BUSINESS_NAME;
+import static ru.angrytit.model.UserAttributes.EMAIL_ATTR;
+import static ru.angrytit.model.UserAttributes.NAME_ATTR;
+import static ru.angrytit.model.UserAttributes.TITLE_ATTR;
+
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
  */
 public class SignUpB2bFunction implements HandleService {
     private final Logger log = LoggerFactory.getLogger(getClass());
-
-    private static final String EMAIL_ATTR = "email";
-    private static final String NAME_ATTR = "name";
-    private static final String TITLE_ATTR = "custom:title";
-    private static final String BUSINESS_NAME = "custom:business_name";
 
     private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
@@ -45,16 +45,16 @@ public class SignUpB2bFunction implements HandleService {
                 userName, email, name, title, businessName);
 
         List<AttributeType> attributeTypes = new ArrayList<>();
-        attributeTypes.add(new AttributeType().withName(EMAIL_ATTR).withValue(email));
+        attributeTypes.add(new AttributeType().withName(EMAIL_ATTR.getValue()).withValue(email));
 
         if (name != null) {
-            attributeTypes.add(new AttributeType().withName(NAME_ATTR).withValue(name));
+            attributeTypes.add(new AttributeType().withName(NAME_ATTR.getValue()).withValue(name));
         }
         if (title != null) {
-            attributeTypes.add(new AttributeType().withName(TITLE_ATTR).withValue(title));
+            attributeTypes.add(new AttributeType().withName(TITLE_ATTR.getValue()).withValue(title));
         }
         if (businessName != null) {
-            attributeTypes.add(new AttributeType().withName(BUSINESS_NAME).withValue(businessName));
+            attributeTypes.add(new AttributeType().withName(BUSINESS_NAME.getValue()).withValue(businessName));
         }
 
         SignUpRequest signUpRequest = new SignUpRequest().

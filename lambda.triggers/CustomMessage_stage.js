@@ -8,7 +8,7 @@ exports.handler = function(event, context) {
         event.response.emailSubject = "Welcome to the service";
         event.response.emailMessage = "Thank you for signing up.\n" +
             "To complete your registration flow plz follow the link\n" +
-            "https://59sc9dnn96.execute-api.us-east-1.amazonaws.com/stage/manufacturer/confirm?id=" + event.userName+ "&code=" + event.request.codeParameter;
+            "https://h5cr5nsxb7.execute-api.us-east-1.amazonaws.com/stage/signup/confirm?id=" + event.userName+ "&code=" + event.request.codeParameter;
     }
     // Return result to Cognito
     context.done(null, event);
