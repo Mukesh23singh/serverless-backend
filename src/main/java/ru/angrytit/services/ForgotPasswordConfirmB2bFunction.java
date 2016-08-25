@@ -14,8 +14,11 @@ public class ForgotPasswordConfirmB2bFunction implements HandleService {
 
     private final AWSCognitoIdentityProvider awsCognitoIdentityProvider;
 
-    public ForgotPasswordConfirmB2bFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider) {
+    private final String applicationClientId;
+
+    public ForgotPasswordConfirmB2bFunction(AWSCognitoIdentityProvider awsCognitoIdentityProvider, String applicationClientId) {
         this.awsCognitoIdentityProvider = awsCognitoIdentityProvider;
+        this.applicationClientId = applicationClientId;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class ForgotPasswordConfirmB2bFunction implements HandleService {
         String newPassword = request.getProposedPassword();
         log.info("Confirm forgot password for user with email : {}");
         ConfirmForgotPasswordRequest confirmForgotPasswordRequest = new ConfirmForgotPasswordRequest().
+                withClientId(applicationClientId).
                 withUsername(email).
                 withConfirmationCode(code).
                 withPassword(newPassword);
