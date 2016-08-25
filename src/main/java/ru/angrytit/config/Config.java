@@ -82,12 +82,12 @@ public class Config {
 
     @Bean(name = "ForgotPasswordB2bFunction")
     public ForgotPasswordB2bFunction forgotPasswordB2bFunction() {
-        return new ForgotPasswordB2bFunction(awsCognitoIdentityProvider());
+        return new ForgotPasswordB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
     }
 
     @Bean(name = "ForgotPasswordConfirmB2bFunction")
     public ForgotPasswordConfirmB2bFunction forgotPasswordConfirmB2bFunction() {
-        return new ForgotPasswordConfirmB2bFunction(awsCognitoIdentityProvider());
+        return new ForgotPasswordConfirmB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
     }
 
 }
