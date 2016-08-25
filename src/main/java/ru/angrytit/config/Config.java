@@ -10,6 +10,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import ru.angrytit.services.AuthB2bFunction;
+import ru.angrytit.services.ChangePasswordB2bFunction;
+import ru.angrytit.services.ForgotPasswordB2bFunction;
+import ru.angrytit.services.ForgotPasswordConfirmB2bFunction;
 import ru.angrytit.services.GetUserB2bFunction;
 import ru.angrytit.services.SignUpB2bFunction;
 import ru.angrytit.services.SignUpConfirmB2bFunction;
@@ -70,6 +73,21 @@ public class Config {
     @Bean(name = "GetUserB2bFunction")
     public GetUserB2bFunction userB2bFunction() {
         return new GetUserB2bFunction(awsCognitoIdentityProvider());
+    }
+
+    @Bean(name = "ChangePasswordB2bFunction")
+    public ChangePasswordB2bFunction changePasswordB2bFunction() {
+        return new ChangePasswordB2bFunction(awsCognitoIdentityProvider());
+    }
+
+    @Bean(name = "ForgotPasswordB2bFunction")
+    public ForgotPasswordB2bFunction forgotPasswordB2bFunction() {
+        return new ForgotPasswordB2bFunction(awsCognitoIdentityProvider());
+    }
+
+    @Bean(name = "ForgotPasswordConfirmB2bFunction")
+    public ForgotPasswordConfirmB2bFunction forgotPasswordConfirmB2bFunction() {
+        return new ForgotPasswordConfirmB2bFunction(awsCognitoIdentityProvider());
     }
 
 }
