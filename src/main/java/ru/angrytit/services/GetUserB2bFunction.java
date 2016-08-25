@@ -30,7 +30,9 @@ public class GetUserB2bFunction implements HandleService {
         GetUserResult result = awsCognitoIdentityProvider.getUser(getUserRequest);
         log.info("Got user info for access token : {}, user name : {}", accessToken, result.getUsername());
         return result.getUserAttributes().stream().
+                peek(each -> log.info("Name : {}, value : {}", each.getName(), each.getValue())).
                 filter(each -> UserAttributes.contains(each.getName())).
+                peek(each -> log.info("Name : {}, value : {}", each.getName(), each.getValue())).
                 collect(toList());
     }
 }
