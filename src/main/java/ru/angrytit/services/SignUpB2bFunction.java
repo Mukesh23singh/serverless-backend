@@ -11,10 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static org.apache.commons.lang3.StringUtils.isEmpty;
 import static ru.angrytit.model.UserAttributes.BUSINESS_NAME;
 import static ru.angrytit.model.UserAttributes.EMAIL_ATTR;
 import static ru.angrytit.model.UserAttributes.NAME_ATTR;
 import static ru.angrytit.model.UserAttributes.TITLE_ATTR;
+import static ru.angrytit.model.UserAttributes.TYPE;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
@@ -40,21 +42,25 @@ public class SignUpB2bFunction implements HandleService {
         String title = request.getTitle();
         String name = request.getName();
         String businessName = request.getBusinessName();
+        String type = request.getType();
 
-        log.info("SignUp with username : {}, email : {}, name : {}, title : {} and business name : {}",
-                userName, email, name, title, businessName);
+        log.info("SignUp with username : {}, email : {}, name : {}, title : {} and business name : {}, type : {}",
+                userName, email, name, title, businessName, type);
 
         List<AttributeType> attributeTypes = new ArrayList<>();
         attributeTypes.add(new AttributeType().withName(EMAIL_ATTR.getValue()).withValue(email));
 
-        if (name != null) {
+        if (!isEmpty(name)) {
             attributeTypes.add(new AttributeType().withName(NAME_ATTR.getValue()).withValue(name));
         }
-        if (title != null) {
+        if (!isEmpty(title)) {
             attributeTypes.add(new AttributeType().withName(TITLE_ATTR.getValue()).withValue(title));
         }
-        if (businessName != null) {
+        if (!isEmpty(businessName)) {
             attributeTypes.add(new AttributeType().withName(BUSINESS_NAME.getValue()).withValue(businessName));
+        }
+        if (!isEmpty(type)) {
+            attributeTypes.add(new AttributeType().withName(TYPE.getValue()).withValue(type));
         }
 
         SignUpRequest signUpRequest = new SignUpRequest().

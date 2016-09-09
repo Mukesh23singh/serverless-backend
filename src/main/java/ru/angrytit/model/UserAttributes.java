@@ -1,8 +1,5 @@
 package ru.angrytit.model;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.stream.Stream;
 
 /**
@@ -15,7 +12,9 @@ public enum UserAttributes {
 
     TITLE_ATTR("custom:title"),
 
-    BUSINESS_NAME("custom:business_name");
+    BUSINESS_NAME("custom:business_name"),
+
+    TYPE("type");
 
     private final String value;
 

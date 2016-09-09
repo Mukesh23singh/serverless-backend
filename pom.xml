@@ -17,6 +17,7 @@
         <aws.lambda.core.version>1.1.0</aws.lambda.core.version>
         <aws.lambda.events.version>1.1.0</aws.lambda.events.version>
         <spring.version>4.3.2.RELEASE</spring.version>
+        <commons.lang.version>3.4</commons.lang.version>
 
         <logback.version>1.1.7</logback.version>
     </properties>
@@ -51,6 +52,12 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.lang.version}</version>
         </dependency>
 
     </dependencies>

@@ -14,6 +14,7 @@ public class CommonRequest {
     private String businessName;
     private String email;
     private String password;
+    private String type;
 
     //login request fields
     private String accessToken;
@@ -118,5 +119,13 @@ public class CommonRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
