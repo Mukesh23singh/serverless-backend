@@ -59,15 +59,15 @@ public class SignUpB2bFunction implements HandleService {
         if (!isEmpty(businessName)) {
             attributeTypes.add(new AttributeType().withName(BUSINESS_NAME.getValue()).withValue(businessName));
         }
-        if (!isEmpty(type)) {
+        if (!isEmpty(type)){
             attributeTypes.add(new AttributeType().withName(TYPE.getValue()).withValue(type));
         }
 
-        SignUpRequest signUpRequest = new SignUpRequest().
-                withClientId(applicationClientId).
-                withUsername(userName).
-                withPassword(password).
-                withUserAttributes(attributeTypes);
+            SignUpRequest signUpRequest = new SignUpRequest().
+                    withClientId(applicationClientId).
+                    withUsername(userName).
+                    withPassword(password).
+                    withUserAttributes(attributeTypes);
 
 
         awsCognitoIdentityProvider.signUp(signUpRequest);

@@ -16,7 +16,6 @@ import ru.angrytit.services.ForgotPasswordConfirmB2bFunction;
 import ru.angrytit.services.GetUserB2bFunction;
 import ru.angrytit.services.SignUpB2bFunction;
 import ru.angrytit.services.SignUpConfirmB2bFunction;
-import ru.angrytit.services.inner.CredentialsService;
 
 /**
  * @author Mikhail Tyamin <a href="mailto:mikhail.tiamine@gmail.com>mikhail.tiamine@gmail.com</a>
@@ -49,11 +48,11 @@ public class Config {
         return AmazonCognitoIdentityClientBuilder.standard().withRegion(region).build();
     }
 
-    @Bean
-    public CredentialsService credentialsService() {
-        String providerName = "cognito-idp." + region + ".amazonaws.com/" + userPoolId;
-        return new CredentialsService(awsCognitoIdentityClient(), identityPoolId, providerName);
-    }
+//    @Bean
+//    public CredentialsService credentialsService() {
+//        String providerName = "cognito-idp." + region + ".amazonaws.com/" + userPoolId;
+//        return new CredentialsService(awsCognitoIdentityClient(), identityPoolId, providerName);
+//    }
 
     @Bean(name = "SignUpB2bFunction")
     public SignUpB2bFunction signUpB2bFunction() {
