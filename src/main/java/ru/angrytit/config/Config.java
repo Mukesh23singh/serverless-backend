@@ -16,6 +16,7 @@ import ru.angrytit.services.ForgotPasswordConfirmB2bFunction;
 import ru.angrytit.services.GetUserB2bFunction;
 import ru.angrytit.services.SignUpB2bFunction;
 import ru.angrytit.services.SignUpConfirmB2bFunction;
+import ru.angrytit.services.UpdateUserInfoB2bFunction;
 import ru.angrytit.services.inner.CredentialsService;
 
 /**
@@ -88,6 +89,11 @@ public class Config {
     @Bean(name = "ForgotPasswordConfirmB2bFunction")
     public ForgotPasswordConfirmB2bFunction forgotPasswordConfirmB2bFunction() {
         return new ForgotPasswordConfirmB2bFunction(awsCognitoIdentityProvider(), applicationClientId);
+    }
+
+    @Bean(name = "UpdateUserInfoB2bFunction")
+    public UpdateUserInfoB2bFunction updateUserInfoB2bFunction() {
+        return new UpdateUserInfoB2bFunction(awsCognitoIdentityProvider());
     }
 
 }

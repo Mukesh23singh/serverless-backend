@@ -6,6 +6,7 @@ import com.amazonaws.services.cognitoidp.model.SignUpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.angrytit.model.CommonRequest;
+import ru.angrytit.model.UserType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,15 +60,21 @@ public class SignUpB2bFunction implements HandleService {
         if (!isEmpty(businessName)) {
             attributeTypes.add(new AttributeType().withName(BUSINESS_NAME.getValue()).withValue(businessName));
         }
-        if (!isEmpty(type)){
+        if (!isEmpty(type)) {
+            try {
+                UserType.valueOf(type.toUpperCase());
+            } catch (RuntimeException e) {
+                log.error("Error while validate user type", e);
+                throw new com.amazonaws.services.cognitoidp.model.InvalidParameterException(e.getMessage());
+            }
             attributeTypes.add(new AttributeType().withName(TYPE.getValue()).withValue(type));
         }
 
-            SignUpRequest signUpRequest = new SignUpRequest().
-                    withClientId(applicationClientId).
-                    withUsername(userName).
-                    withPassword(password).
-                    withUserAttributes(attributeTypes);
+        SignUpRequest signUpRequest = new SignUpRequest().
+                withClientId(applicationClientId).
+                withUsername(userName).
+                withPassword(password).
+                withUserAttributes(attributeTypes);
 
 
         awsCognitoIdentityProvider.signUp(signUpRequest);
