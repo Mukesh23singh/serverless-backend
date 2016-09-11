@@ -14,7 +14,7 @@ public enum UserAttributes {
 
     BUSINESS_NAME("custom:business_name"),
 
-    TYPE("type");
+    TYPE("custom:type");
 
     private final String value;
 
