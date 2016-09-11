@@ -42,9 +42,21 @@
             <version>${aws.lambda.events.version}</version>
         </dependency>
 
+        <!--<dependency>-->
+            <!--<groupId>com.amazonaws</groupId>-->
+            <!--<artifactId>aws-java-sdk</artifactId>-->
+            <!--<version>${aws.sdk.version}</version>-->
+        <!--</dependency>-->
+
         <dependency>
             <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk</artifactId>
+            <artifactId>aws-java-sdk-cognitoidentity</artifactId>
+            <version>${aws.sdk.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk-cognitoidp</artifactId>
             <version>${aws.sdk.version}</version>
         </dependency>
 
